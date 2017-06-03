@@ -18,6 +18,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'DefaultBuild' " />
   <PropertyGroup Condition=" '$(Configuration)' == 'DefaultBuild' " />
   <PropertyGroup Condition=" '$(Configuration)' == 'DefaultBuild' " />
+  <PropertyGroup Condition=" '$(Configuration)' == 'DefaultBuild' " />
   <ItemGroup>
     <Compile Include="VinDecoder.Installer.aip">
       <SubType>Code</SubType>

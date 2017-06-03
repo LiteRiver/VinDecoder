@@ -6,13 +6,17 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_HtmlAgilityPack.dll" Value="..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_VinDecoder.Framework.dll" Value="..\VinDecoder.Framework\bin\Release"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_VinDecoder.exe" Value="..\VinDecoder\bin\Release"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_VinDecoder.exe.config" Value="..\VinDecoder\bin\Release"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_VinDecoder" Value="..\packages\log4net.2.0.8\lib\net45-full"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_VinDecoder.Framework.dll" Value="..\VinDecoder.Framework\bin\Debug"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_VinDecoder.exe" Value="..\VinDecoder\bin\Debug"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_VinDecoder.exe.config" Value="..\VinDecoder\bin\Debug"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_VinDecoder_1" Value="..\VinDecoder\bin\Debug"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_HtmlAgilityPack.dll" Value="HtmlAgilityPack.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_VinDecoder" Value="log4net.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_VinDecoder.Framework.dll" Value="VinDecoder.Framework.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_VinDecoder.exe" Value="VinDecoder.exe"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_VinDecoder.exe.config" Value="VinDecoder.exe.config"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_VinDecoder_1" Value="VinDecoder.exe.log4net"/>
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="Manufacturer" Value="Westbon"/>
@@ -47,16 +51,20 @@
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="HtmlAgilityPack.dll" Component_="VinDecoder_References" FileName="HTMLAG~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_HtmlAgilityPack.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_HtmlAgilityPack.dll&gt;" SelfReg="false"/>
+    <ROW File="HtmlAgilityPack.dll" Component_="VinDecoder_References" FileName="HTMLAG~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_HtmlAgilityPack.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_HtmlAgilityPack.dll&gt;" SelfReg="false" NextFile="VinDecoder"/>
+    <ROW File="VinDecoder" Component_="VinDecoder_References" FileName="[|AI_PROPPATH_FILENAME_PERBUILD_VinDecoder]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_VinDecoder&gt;" SelfReg="false" NextFile="VinDecoder_1"/>
     <ROW File="VinDecoder.Framework.dll" Component_="VinDecoder_References" FileName="VINDEC~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_VinDecoder.Framework.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_VinDecoder.Framework.dll&gt;" SelfReg="false" NextFile="HtmlAgilityPack.dll"/>
     <ROW File="VinDecoder.exe" Component_="VinDecoder_PrimaryOutput" FileName="VINDEC~2.EXE|[|AI_PROPPATH_FILENAME_PERBUILD_VinDecoder.exe]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_VinDecoder.exe&gt;" SelfReg="false" NextFile="VinDecoder.exe.config" DigSign="true"/>
     <ROW File="VinDecoder.exe.config" Component_="VinDecoder_PrimaryOutput" FileName="VINDEC~2.CON|[|AI_PROPPATH_FILENAME_PERBUILD_VinDecoder.exe.config]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_VinDecoder.exe.config&gt;" SelfReg="false" NextFile="VinDecoder.Framework.dll"/>
+    <ROW File="VinDecoder_1" Component_="VinDecoder_PrimaryOutput" FileName="APP~1.LOG|[|AI_PROPPATH_FILENAME_PERBUILD_VinDecoder_1]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_VinDecoder_1&gt;" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppPathsComponent">
     <ROW Name="AI_APPPATH_PERBUILD_HtmlAgilityPack.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_HtmlAgilityPack.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_HtmlAgilityPack.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_VinDecoder" Path="[|AI_PROPPATH_DIR_PERBUILD_VinDecoder]\[|AI_PROPPATH_FILENAME_PERBUILD_VinDecoder]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_VinDecoder.Framework.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_VinDecoder.Framework.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_VinDecoder.Framework.dll]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_VinDecoder.exe" Path="[|AI_PROPPATH_DIR_PERBUILD_VinDecoder.exe]\[|AI_PROPPATH_FILENAME_PERBUILD_VinDecoder.exe]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_VinDecoder.exe.config" Path="[|AI_PROPPATH_DIR_PERBUILD_VinDecoder.exe.config]\[|AI_PROPPATH_FILENAME_PERBUILD_VinDecoder.exe.config]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_VinDecoder_1" Path="[|AI_PROPPATH_DIR_PERBUILD_VinDecoder_1]\[|AI_PROPPATH_FILENAME_PERBUILD_VinDecoder_1]" Type="2" Content="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
     <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" Languages="en" InstallationType="4" UseLargeSchema="true"/>
@@ -159,5 +167,7 @@
     <ROW ProjectId="{35ad0010-b651-48b0-8e08-bc51808a8053}" ProjectName="VinDecoder" OutputGroup="PrimaryOutput" OutputFile="VinDecoder.exe.config"/>
     <ROW ProjectId="{35ad0010-b651-48b0-8e08-bc51808a8053}" ProjectName="VinDecoder" OutputGroup="References" OutputFile="VinDecoder.Framework.dll"/>
     <ROW ProjectId="{35ad0010-b651-48b0-8e08-bc51808a8053}" ProjectName="VinDecoder" OutputGroup="References" OutputFile="HtmlAgilityPack.dll"/>
+    <ROW ProjectId="{35ad0010-b651-48b0-8e08-bc51808a8053}" ProjectName="VinDecoder" OutputGroup="References" OutputFile="VinDecoder"/>
+    <ROW ProjectId="{35ad0010-b651-48b0-8e08-bc51808a8053}" ProjectName="VinDecoder" OutputGroup="PrimaryOutput" OutputFile="VinDecoder_1"/>
   </COMPONENT>
 </DOCUMENT>
