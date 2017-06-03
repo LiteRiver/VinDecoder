@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HtmlAgilityPack;
+using log4net;
+using System;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using VinDecoder.Framework.Net;
-using HtmlAgilityPack;
-using log4net;
 
 namespace VinDecoder.Framework {
     public class VinCrawler {
         private const string INIT_URL = "http://www.blackbookportals.com/bb/products/usedcarhtmlportal.asp";
 
         private CookieContainer m_cookies = new CookieContainer();
-        private static readonly Regex s_actionRegex = new Regex("<form.+?action=\"(?<url>.+?)\">");
 
         private static readonly ILog s_logger = LogManager.GetLogger(typeof(VinCrawler));
 
@@ -29,12 +24,15 @@ namespace VinDecoder.Framework {
 
         public string ParseUrl() {
             s_logger.Info("starting to retrieve initialization page");
-            var res = GetInitPage();
+            var page = GetInitPage();
             s_logger.Info("Initialization page retrieved");
-            s_logger.Info(res);
+            s_logger.Info(page);
 
-            var match = s_actionRegex.Match(res);
-            var action = "http://www.blackbookportals.com/bb/products/" + match.Groups["url"].Value + "&vinchange=Y&showwholesale=True&showretail=True&showtradein=True";
+            var doc = new HtmlDocument();
+            doc.LoadHtml(page);
+
+            var action = doc.DocumentNode.SelectSingleNode("//form").Attributes["action"].Value;
+            action = "http://www.blackbookportals.com/bb/products/" + action + "&vinchange=Y&showwholesale=True&showretail=True&showtradein=True";
 
             s_logger.InfoFormat("action url parsed => [{0}]", action);
             return action;
@@ -61,17 +59,17 @@ namespace VinDecoder.Framework {
                 };
 
                 var root = doc.DocumentNode;
-                vehicle.Year = root.SelectNodes("//select[@id='bb_year']/option[@selected]").First().Attributes["value"].Value;
-                vehicle.Make = root.SelectNodes("//select[@id='bb_make']/option[@selected]").First().Attributes["value"].Value;
-                vehicle.Model = root.SelectNodes("//select[@id='bb_model']/option[@selected]").First().Attributes["value"].Value;
-                vehicle.Series = root.SelectNodes("//select[@id='bb_Series']/option[@selected]").First().Attributes["value"].Value;
-                vehicle.Style = root.SelectNodes("//select[@id='bb_bodystyle']/option[@selected]").First().Attributes["value"].Value;
+                vehicle.Year = root.SelectSingleNode("//select[@id='bb_year']/option[@selected]").Attributes["value"].Value;
+                vehicle.Make = root.SelectSingleNode("//select[@id='bb_make']/option[@selected]").Attributes["value"].Value;
+                vehicle.Model = root.SelectSingleNode("//select[@id='bb_model']/option[@selected]").Attributes["value"].Value;
+                vehicle.Series = root.SelectSingleNode("//select[@id='bb_Series']/option[@selected]").Attributes["value"].Value;
+                vehicle.Style = root.SelectSingleNode("//select[@id='bb_bodystyle']/option[@selected]").Attributes["value"].Value;                
 
                 return vehicle;
 
             } catch(Exception ex) {
                 s_logger.Error("An error Occured", ex);
-                throw ex;
+                throw new VinDecoderException("An error Occured", ex);
             }
 
         }
